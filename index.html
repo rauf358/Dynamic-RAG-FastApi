@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robotics AI Assistant</title>
+    <!-- Use Tailwind CSS for instant, beautiful styling without needing a CSS file -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* A small animation for the loading dots */
+        .dot-flashing {
+            animation: dotFlashing 1s infinite linear alternate;
+        }
+        .dot-flashing:nth-child(2) { animation-delay: 0.2s; }
+        .dot-flashing:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes dotFlashing {
+            0% { opacity: 0.2; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 h-screen flex flex-col items-center justify-center p-4 font-sans">
+
+    <div class="w-full max-w-3xl bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col h-[90vh]">
+        
+        <!-- Header -->
+        <div class="bg-slate-900 text-white p-5 flex items-center justify-between">
+            <div>
+                <h1 class="font-bold text-xl flex items-center gap-2">
+                    🤖 Robotics AI Assistant
+                </h1>
+                <p class="text-sm text-slate-400 mt-1">FastAPI + LangChain + Gemini</p>
+            </div>
+            
+            <!-- Upload Section -->
+            <div class="flex items-center gap-2 bg-slate-800 p-2 rounded-lg">
+                <input type="file" id="pdf-upload" accept="application/pdf" class="text-sm text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
+                <button onclick="uploadPDF()" id="upload-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition-colors">
+                    Upload
+                </button>
+            </div>
+        </div>
+
+        <!-- System Message Bar -->
+        <div id="status-bar" class="bg-blue-50 text-blue-800 text-sm p-3 text-center border-b border-blue-100 hidden font-medium">
+            System status goes here...
+        </div>
+
+        <!-- Chat Area -->
+        <div id="chat-box" class="flex-1 overflow-y-auto p-6 space-y-4 bg-slate-50">
+            <!-- Initial Bot Message -->
+            <div class="flex gap-4">
+                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0 text-white text-sm">AI</div>
+                <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-slate-700 max-w-[80%]">
+                    Hello! Please upload your PDF document using the button in the top right, and then ask me anything about it.
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="p-4 bg-white border-t border-slate-200">
+            <form onsubmit="sendMessage(event)" class="flex gap-3">
+                <input type="text" id="user-input" placeholder="Ask a question about the PDF..." disabled
+                    class="flex-1 px-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+                <button type="submit" id="send-btn" disabled
+                    class="px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-sm">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- Logic to handle File Upload ---
+        async function uploadPDF() {
+            const fileInput = document.getElementById('pdf-upload');
+            const file = fileInput.files[0];
+            const uploadBtn = document.getElementById('upload-btn');
+            const statusBar = document.getElementById('status-bar');
+            
+            if (!file) {
+                alert("Please select a PDF file first.");
+                return;
+            }
+
+            // Update UI to show loading
+            uploadBtn.innerText = "Processing...";
+            uploadBtn.disabled = true;
+            statusBar.innerText = `Processing ${file.name}... This may take a moment.`;
+            statusBar.classList.remove('hidden', 'bg-red-50', 'text-red-800');
+            statusBar.classList.add('bg-blue-50', 'text-blue-800');
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+                // Send the file to our FastAPI /upload endpoint
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    statusBar.innerText = "✅ PDF processed successfully! You can now chat.";
+                    statusBar.classList.add('bg-green-50', 'text-green-800');
+                    document.getElementById('user-input').disabled = false;
+                    document.getElementById('send-btn').disabled = false;
+                    uploadBtn.innerText = "Uploaded";
+                } else {
+                    throw new Error(data.detail || "Failed to upload");
+                }
+            } catch (error) {
+                statusBar.innerText = `❌ Error: ${error.message}`;
+                statusBar.classList.add('bg-red-50', 'text-red-800');
+                uploadBtn.innerText = "Upload";
+                uploadBtn.disabled = false;
+            }
+        }
+
+        // --- Logic to handle Chat Messages ---
+        async function sendMessage(event) {
+            event.preventDefault(); // Prevent page reload
+            
+            const inputField = document.getElementById('user-input');
+            const message = inputField.value.trim();
+            const chatBox = document.getElementById('chat-box');
+            const sendBtn = document.getElementById('send-btn');
+            
+            if (!message) return;
+
+            // 1. Add User message to UI
+            inputField.value = '';
+            inputField.disabled = true;
+            sendBtn.disabled = true;
+            
+            chatBox.innerHTML += `
+                <div class="flex gap-4 flex-row-reverse">
+                    <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 text-white text-sm">U</div>
+                    <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tr-none shadow-sm max-w-[80%]">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // 2. Add Loading Indicator
+            const loadingId = "loading-" + Date.now();
+            chatBox.innerHTML += `
+                <div id="${loadingId}" class="flex gap-4">
+                    <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0 text-white text-sm">AI</div>
+                    <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-slate-700 flex gap-1 items-center h-12">
+                        <div class="w-2 h-2 bg-slate-400 rounded-full dot-flashing"></div>
+                        <div class="w-2 h-2 bg-slate-400 rounded-full dot-flashing"></div>
+                        <div class="w-2 h-2 bg-slate-400 rounded-full dot-flashing"></div>
+                    </div>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            try {
+                // 3. Send message to our FastAPI /chat endpoint
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: message })
+                });
+
+                const data = await response.json();
+                
+                // Remove loading indicator
+                document.getElementById(loadingId).remove();
+
+                if (response.ok) {
+                    // Add Bot response to UI
+                    chatBox.innerHTML += `
+                        <div class="flex gap-4">
+                            <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0 text-white text-sm">AI</div>
+                            <div class="bg-white p-4 rounded-2xl rounded-tl-none shadow-sm border border-slate-100 text-slate-700 max-w-[80%] whitespace-pre-wrap leading-relaxed">${data.reply}</div>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(data.detail || "Failed to get response");
+                }
+            } catch (error) {
+                document.getElementById(loadingId).remove();
+                chatBox.innerHTML += `
+                    <div class="flex gap-4">
+                        <div class="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center shrink-0 text-white text-sm">!</div>
+                        <div class="bg-red-50 text-red-800 p-4 rounded-2xl rounded-tl-none shadow-sm border border-red-100 max-w-[80%]">
+                            Error communicating with server: ${error.message}
+                        </div>
+                    </div>
+                `;
+            }
+
+            inputField.disabled = false;
+            sendBtn.disabled = false;
+            inputField.focus();
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>

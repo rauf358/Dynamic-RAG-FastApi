@@ -308,3 +308,33 @@ Traceback (most recent call last):
     raise ChatGoogleGenerativeAIError(msg) from e
 langchain_google_genai.chat_models.ChatGoogleGenerativeAIError: Error calling model 'gemini-1.5-flash' (NOT_FOUND): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
 2026-06-18 00:57:36,485 - INFO - rag_app - Completed POST /chat - Status: 500 - Time: 606.16ms
+2026-06-18 01:00:13,509 - INFO - rag_app - Starting up Dynamic RAG API Server...
+2026-06-18 01:00:21,429 - INFO - rag_app - Incoming request: GET /docs
+2026-06-18 01:00:21,431 - INFO - rag_app - Completed GET /docs - Status: 200 - Time: 2.00ms
+2026-06-18 01:00:21,512 - INFO - rag_app - Incoming request: GET /openapi.json
+2026-06-18 01:00:21,520 - INFO - rag_app - Completed GET /openapi.json - Status: 200 - Time: 7.99ms
+2026-06-18 01:00:39,127 - INFO - rag_app - Incoming request: POST /upload
+2026-06-18 01:00:39,133 - INFO - rag_app - Received file upload: Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 01:00:39,133 - INFO - rag_app - Starting document processing pipeline...
+2026-06-18 01:00:39,135 - INFO - rag_app - Attempting to load PDF from: temp_uploads/Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 01:00:39,441 - INFO - rag_app - Successfully loaded 4 pages from the PDF.
+2026-06-18 01:00:39,441 - INFO - rag_app - Starting text splitting: chunk_size=1000, overlap=200
+2026-06-18 01:00:39,441 - INFO - rag_app - Successfully split the document into 4 individual chunks.
+2026-06-18 01:00:39,441 - INFO - rag_app - Initializing embedding model: all-MiniLM-L6-v2
+2026-06-18 01:00:47,248 - INFO - rag_app - Successfully loaded embedding model.
+2026-06-18 01:00:47,248 - INFO - rag_app - Creating vector store for 4 chunks...
+2026-06-18 01:00:47,473 - INFO - rag_app - Successfully built Chroma vector store.
+2026-06-18 01:00:47,473 - INFO - rag_app - Building RAG chain...
+2026-06-18 01:00:47,473 - DEBUG - rag_app - Initializing Gemini 1.5 Flash model...
+2026-06-18 01:00:47,521 - INFO - rag_app - Successfully built RAG chain.
+2026-06-18 01:00:47,522 - INFO - rag_app - Successfully processed Agentic AI Class Task - Crypto Agent.pdf and activated RAG chain.
+2026-06-18 01:00:47,523 - DEBUG - rag_app - Cleaned up temporary file: temp_uploads/Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 01:00:47,524 - INFO - rag_app - Completed POST /upload - Status: 200 - Time: 8397.08ms
+2026-06-18 01:01:59,906 - INFO - rag_app - Incoming request: POST /chat
+2026-06-18 01:01:59,906 - INFO - rag_app - User asked: 'What's the main topic of disscussion? '
+2026-06-18 01:02:00,884 - DEBUG - rag_app - Successfully generated LLM response.
+2026-06-18 01:02:00,884 - INFO - rag_app - Completed POST /chat - Status: 200 - Time: 978.35ms
+2026-06-18 01:02:33,841 - INFO - rag_app - Incoming request: POST /chat
+2026-06-18 01:02:33,842 - INFO - rag_app - User asked: 'What in this file? '
+2026-06-18 01:02:35,199 - DEBUG - rag_app - Successfully generated LLM response.
+2026-06-18 01:02:35,200 - INFO - rag_app - Completed POST /chat - Status: 200 - Time: 1359.84ms

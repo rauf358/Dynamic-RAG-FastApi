@@ -12,7 +12,7 @@ from src.splitter import split_text
 from src.embeddings import get_embeddings
 from src.vectorstore import create_vectorstore
 from src.rag_chain import build_chain
-
+from fastapi.responses import HTMLResponse
 # 2. Initialize FastAPI
 app = FastAPI(title="Dynamic PDF RAG API")
 
@@ -109,3 +109,4 @@ async def chat_endpoint(request: ChatRequest):
     except Exception as e:
         logger.error(f"Error during chat generation: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
+
