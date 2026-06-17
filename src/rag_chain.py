@@ -21,7 +21,7 @@ def build_chain(vectorstore):
 
         # 2. Initialize the LLM
         logger.debug("Initializing Gemini 1.5 Flash model...")
-        llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", google_api_key=api_key)
+        llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash-lite", google_api_key=api_key)
 
         # 3. Setup the Retriever
         # k=4 ensures it pulls the top 4 most relevant chunks from ChromaDB

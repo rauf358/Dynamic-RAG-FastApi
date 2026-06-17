@@ -59,9 +59,12 @@ async def upload_pdf(file: UploadFile = File(...)):
     global current_chain
     logger.info(f"Received file upload: {file.filename}")
     
-    # 1. Save the file temporarily
-    temp_file_path = f"data/{file.filename}"
-    os.makedirs("data", exist_ok=True)
+    # 1. Save the file temporarily in a specific uploads folder
+    upload_dir = "temp_uploads"
+    temp_file_path = f"{upload_dir}/{file.filename}"
+    
+    # Create the directory safely
+    os.makedirs(upload_dir, exist_ok=True)
     
     try:
         with open(temp_file_path, "wb") as buffer:

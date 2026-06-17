@@ -23,3 +23,288 @@
 2026-06-18 00:14:12,526 - INFO - rag_app - Completed GET /openapi.json - Status: 200 - Time: 20.83ms
 2026-06-18 00:14:59,697 - INFO - rag_app - Incoming request: POST /upload
 2026-06-18 00:14:59,711 - INFO - rag_app - Received file upload: Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:19:25,545 - INFO - rag_app - Starting up Dynamic RAG API Server...
+2026-06-18 00:20:11,301 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:20:11,301 - INFO - rag_app - Completed GET / - Status: 404 - Time: 0.00ms
+2026-06-18 00:20:13,831 - INFO - rag_app - Incoming request: GET /docs
+2026-06-18 00:20:13,837 - INFO - rag_app - Completed GET /docs - Status: 200 - Time: 6.11ms
+2026-06-18 00:20:14,600 - INFO - rag_app - Incoming request: GET /openapi.json
+2026-06-18 00:20:14,618 - INFO - rag_app - Completed GET /openapi.json - Status: 200 - Time: 17.96ms
+2026-06-18 00:20:34,000 - INFO - rag_app - Incoming request: POST /upload
+2026-06-18 00:20:34,011 - INFO - rag_app - Received file upload: Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:20:34,011 - INFO - rag_app - Starting document processing pipeline...
+2026-06-18 00:20:34,011 - INFO - rag_app - Attempting to load PDF from: temp_uploads/Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:20:34,997 - INFO - rag_app - Successfully loaded 4 pages from the PDF.
+2026-06-18 00:20:34,997 - INFO - rag_app - Starting text splitting: chunk_size=1000, overlap=200
+2026-06-18 00:20:34,997 - INFO - rag_app - Successfully split the document into 4 individual chunks.
+2026-06-18 00:20:34,997 - INFO - rag_app - Initializing embedding model: all-MiniLM-L6-v2
+2026-06-18 00:20:35,037 - ERROR - rag_app - Failed to initialize embeddings: Could not import sentence_transformers python package. Please install it with `pip install sentence-transformers`.
+Traceback (most recent call last):
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\utils\import_utils.py", line 2262, in __getattr__
+    module = self._get_module(self._class_to_module[name])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\utils\import_utils.py", line 2496, in _get_module
+    raise e
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\utils\import_utils.py", line 2494, in _get_module
+    return importlib.import_module("." + module_name, self.__name__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\importlib\__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\modeling_utils.py", line 87, in <module>
+    from .loss.loss_utils import LOSS_MAPPING
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\loss\loss_utils.py", line 20, in <module>
+    from .loss_d_fine import DFineForObjectDetectionLoss
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\loss\loss_d_fine.py", line 21, in <module>
+    from .loss_for_object_detection import box_iou
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\loss\loss_for_object_detection.py", line 31, in <module>
+    from transformers.image_transforms import center_to_corners_format
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\image_transforms.py", line 22, in <module>
+    from .image_utils import (
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\image_utils.py", line 54, in <module>
+    from torchvision.io import ImageReadMode, decode_image
+  File "D:\downloads\anaconda\Lib\site-packages\torchvision\__init__.py", line 6, in <module>
+    from torchvision import _meta_registrations, datasets, io, models, ops, transforms, utils
+  File "D:\downloads\anaconda\Lib\site-packages\torchvision\_meta_registrations.py", line 25, in <module>
+    @register_meta("roi_align")
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\site-packages\torchvision\_meta_registrations.py", line 18, in wrapper
+    if torchvision.extension._has_ops():
+       ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: partially initialized module 'torchvision' has no attribute 'extension' (most likely due to a circular import)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\downloads\anaconda\Lib\site-packages\langchain_huggingface\embeddings\huggingface.py", line 68, in __init__
+    import sentence_transformers  # type: ignore[import]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\site-packages\sentence_transformers\__init__.py", line 15, in <module>
+    from sentence_transformers.base.sampler import DefaultBatchSampler, MultiDatasetDefaultBatchSampler
+  File "D:\downloads\anaconda\Lib\site-packages\sentence_transformers\base\__init__.py", line 4, in <module>
+    from .model import BaseModel
+  File "D:\downloads\anaconda\Lib\site-packages\sentence_transformers\base\model.py", line 24, in <module>
+    from transformers import PreTrainedModel, is_datasets_available, is_torch_npu_available
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\utils\import_utils.py", line 2350, in __getattr__
+    raise ModuleNotFoundError(
+ModuleNotFoundError: Could not import module 'PreTrainedModel'. Are this object's requirements defined correctly?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Buffer\Applied data science and AI specialization\RAG\src\embeddings.py", line 13, in get_embeddings
+    embeddings = HuggingFaceEmbeddings(model_name=model_name)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\site-packages\langchain_huggingface\embeddings\huggingface.py", line 74, in __init__
+    raise ImportError(msg) from exc
+ImportError: Could not import sentence_transformers python package. Please install it with `pip install sentence-transformers`.
+2026-06-18 00:20:35,257 - ERROR - rag_app - Failed to process PDF: Could not import sentence_transformers python package. Please install it with `pip install sentence-transformers`.
+Traceback (most recent call last):
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\utils\import_utils.py", line 2262, in __getattr__
+    module = self._get_module(self._class_to_module[name])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\utils\import_utils.py", line 2496, in _get_module
+    raise e
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\utils\import_utils.py", line 2494, in _get_module
+    return importlib.import_module("." + module_name, self.__name__)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\importlib\__init__.py", line 90, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\modeling_utils.py", line 87, in <module>
+    from .loss.loss_utils import LOSS_MAPPING
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\loss\loss_utils.py", line 20, in <module>
+    from .loss_d_fine import DFineForObjectDetectionLoss
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\loss\loss_d_fine.py", line 21, in <module>
+    from .loss_for_object_detection import box_iou
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\loss\loss_for_object_detection.py", line 31, in <module>
+    from transformers.image_transforms import center_to_corners_format
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\image_transforms.py", line 22, in <module>
+    from .image_utils import (
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\image_utils.py", line 54, in <module>
+    from torchvision.io import ImageReadMode, decode_image
+  File "D:\downloads\anaconda\Lib\site-packages\torchvision\__init__.py", line 6, in <module>
+    from torchvision import _meta_registrations, datasets, io, models, ops, transforms, utils
+  File "D:\downloads\anaconda\Lib\site-packages\torchvision\_meta_registrations.py", line 25, in <module>
+    @register_meta("roi_align")
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\site-packages\torchvision\_meta_registrations.py", line 18, in wrapper
+    if torchvision.extension._has_ops():
+       ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: partially initialized module 'torchvision' has no attribute 'extension' (most likely due to a circular import)
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\downloads\anaconda\Lib\site-packages\langchain_huggingface\embeddings\huggingface.py", line 68, in __init__
+    import sentence_transformers  # type: ignore[import]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\site-packages\sentence_transformers\__init__.py", line 15, in <module>
+    from sentence_transformers.base.sampler import DefaultBatchSampler, MultiDatasetDefaultBatchSampler
+  File "D:\downloads\anaconda\Lib\site-packages\sentence_transformers\base\__init__.py", line 4, in <module>
+    from .model import BaseModel
+  File "D:\downloads\anaconda\Lib\site-packages\sentence_transformers\base\model.py", line 24, in <module>
+    from transformers import PreTrainedModel, is_datasets_available, is_torch_npu_available
+  File "D:\downloads\anaconda\Lib\site-packages\transformers\utils\import_utils.py", line 2350, in __getattr__
+    raise ModuleNotFoundError(
+ModuleNotFoundError: Could not import module 'PreTrainedModel'. Are this object's requirements defined correctly?
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Buffer\Applied data science and AI specialization\RAG\app.py", line 78, in upload_pdf
+    embeddings = get_embeddings()
+                 ^^^^^^^^^^^^^^^^
+  File "E:\Buffer\Applied data science and AI specialization\RAG\src\embeddings.py", line 22, in get_embeddings
+    raise e
+  File "E:\Buffer\Applied data science and AI specialization\RAG\src\embeddings.py", line 13, in get_embeddings
+    embeddings = HuggingFaceEmbeddings(model_name=model_name)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\Lib\site-packages\langchain_huggingface\embeddings\huggingface.py", line 74, in __init__
+    raise ImportError(msg) from exc
+ImportError: Could not import sentence_transformers python package. Please install it with `pip install sentence-transformers`.
+2026-06-18 00:20:35,269 - DEBUG - rag_app - Cleaned up temporary file: temp_uploads/Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:20:35,269 - INFO - rag_app - Completed POST /upload - Status: 500 - Time: 1268.23ms
+2026-06-18 00:53:36,919 - INFO - rag_app - Starting up Dynamic RAG API Server...
+2026-06-18 00:53:48,360 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:53:48,361 - INFO - rag_app - Completed GET / - Status: 404 - Time: 1.00ms
+2026-06-18 00:53:49,529 - INFO - rag_app - Incoming request: GET /docs
+2026-06-18 00:53:49,531 - INFO - rag_app - Completed GET /docs - Status: 200 - Time: 1.76ms
+2026-06-18 00:53:49,652 - INFO - rag_app - Incoming request: GET /openapi.json
+2026-06-18 00:53:49,661 - INFO - rag_app - Completed GET /openapi.json - Status: 200 - Time: 9.00ms
+2026-06-18 00:54:11,125 - INFO - rag_app - Incoming request: POST /upload
+2026-06-18 00:54:11,125 - INFO - rag_app - Received file upload: Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:54:11,138 - INFO - rag_app - Starting document processing pipeline...
+2026-06-18 00:54:11,139 - INFO - rag_app - Attempting to load PDF from: temp_uploads/Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:54:11,482 - INFO - rag_app - Successfully loaded 4 pages from the PDF.
+2026-06-18 00:54:11,483 - INFO - rag_app - Starting text splitting: chunk_size=1000, overlap=200
+2026-06-18 00:54:11,483 - INFO - rag_app - Successfully split the document into 4 individual chunks.
+2026-06-18 00:54:11,484 - INFO - rag_app - Initializing embedding model: all-MiniLM-L6-v2
+2026-06-18 00:55:08,455 - INFO - rag_app - Successfully loaded embedding model.
+2026-06-18 00:55:08,455 - INFO - rag_app - Creating vector store for 4 chunks...
+2026-06-18 00:55:09,288 - INFO - rag_app - Successfully built Chroma vector store.
+2026-06-18 00:55:09,288 - INFO - rag_app - Building RAG chain...
+2026-06-18 00:55:09,288 - ERROR - rag_app - GOOGLE_API_KEY environment variable is missing!
+2026-06-18 00:55:09,288 - ERROR - rag_app - Failed to build RAG chain: GOOGLE_API_KEY is not set. Please set it before running the app.
+Traceback (most recent call last):
+  File "E:\Buffer\Applied data science and AI specialization\RAG\src\rag_chain.py", line 20, in build_chain
+    raise ValueError("GOOGLE_API_KEY is not set. Please set it before running the app.")
+ValueError: GOOGLE_API_KEY is not set. Please set it before running the app.
+2026-06-18 00:55:09,288 - ERROR - rag_app - Failed to process PDF: GOOGLE_API_KEY is not set. Please set it before running the app.
+Traceback (most recent call last):
+  File "E:\Buffer\Applied data science and AI specialization\RAG\app.py", line 80, in upload_pdf
+    current_chain = build_chain(vectorstore)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Buffer\Applied data science and AI specialization\RAG\src\rag_chain.py", line 62, in build_chain
+    raise e
+  File "E:\Buffer\Applied data science and AI specialization\RAG\src\rag_chain.py", line 20, in build_chain
+    raise ValueError("GOOGLE_API_KEY is not set. Please set it before running the app.")
+ValueError: GOOGLE_API_KEY is not set. Please set it before running the app.
+2026-06-18 00:55:09,288 - DEBUG - rag_app - Cleaned up temporary file: temp_uploads/Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:55:09,288 - INFO - rag_app - Completed POST /upload - Status: 500 - Time: 58163.15ms
+2026-06-18 00:56:10,996 - INFO - rag_app - Starting up Dynamic RAG API Server...
+2026-06-18 00:56:14,659 - INFO - rag_app - Incoming request: GET /docs
+2026-06-18 00:56:14,659 - INFO - rag_app - Completed GET /docs - Status: 200 - Time: 0.00ms
+2026-06-18 00:56:14,748 - INFO - rag_app - Incoming request: GET /openapi.json
+2026-06-18 00:56:14,748 - INFO - rag_app - Completed GET /openapi.json - Status: 200 - Time: 0.00ms
+2026-06-18 00:56:25,167 - INFO - rag_app - Incoming request: POST /upload
+2026-06-18 00:56:25,169 - INFO - rag_app - Received file upload: Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:56:25,174 - INFO - rag_app - Starting document processing pipeline...
+2026-06-18 00:56:25,175 - INFO - rag_app - Attempting to load PDF from: temp_uploads/Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:56:25,474 - INFO - rag_app - Successfully loaded 4 pages from the PDF.
+2026-06-18 00:56:25,475 - INFO - rag_app - Starting text splitting: chunk_size=1000, overlap=200
+2026-06-18 00:56:25,475 - INFO - rag_app - Successfully split the document into 4 individual chunks.
+2026-06-18 00:56:25,475 - INFO - rag_app - Initializing embedding model: all-MiniLM-L6-v2
+2026-06-18 00:56:33,415 - INFO - rag_app - Successfully loaded embedding model.
+2026-06-18 00:56:33,415 - INFO - rag_app - Creating vector store for 4 chunks...
+2026-06-18 00:56:33,623 - INFO - rag_app - Successfully built Chroma vector store.
+2026-06-18 00:56:33,623 - INFO - rag_app - Building RAG chain...
+2026-06-18 00:56:33,623 - DEBUG - rag_app - Initializing Gemini 1.5 Flash model...
+2026-06-18 00:56:33,657 - INFO - rag_app - Successfully built RAG chain.
+2026-06-18 00:56:33,657 - INFO - rag_app - Successfully processed Agentic AI Class Task - Crypto Agent.pdf and activated RAG chain.
+2026-06-18 00:56:33,657 - DEBUG - rag_app - Cleaned up temporary file: temp_uploads/Agentic AI Class Task - Crypto Agent.pdf
+2026-06-18 00:56:33,657 - INFO - rag_app - Completed POST /upload - Status: 200 - Time: 8490.16ms
+2026-06-18 00:57:35,879 - INFO - rag_app - Incoming request: POST /chat
+2026-06-18 00:57:35,883 - INFO - rag_app - User asked: 'whats the main topic of discussion in this file?'
+2026-06-18 00:57:36,443 - ERROR - rag_app - Error during chat generation: Error calling model 'gemini-1.5-flash' (NOT_FOUND): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_google_genai\chat_models.py", line 3234, in _generate
+    response: GenerateContentResponse = self.client.models.generate_content(
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\google\genai\models.py", line 6480, in generate_content
+    response = self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\google\genai\models.py", line 4916, in _generate_content
+    response = self._api_client.request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\google\genai\_api_client.py", line 1611, in request
+    response = self._request(http_request, http_options, stream=False)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\google\genai\_api_client.py", line 1402, in _request
+    return retry(self._request_once, http_request, stream)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\tenacity\__init__.py", line 470, in __call__
+    do = self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\tenacity\__init__.py", line 371, in iter
+    result = action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\tenacity\__init__.py", line 393, in <lambda>
+    self._add_action_func(lambda rs: rs.outcome.result())
+                                     ^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\concurrent\futures\_base.py", line 449, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\concurrent\futures\_base.py", line 401, in __get_result
+    raise self._exception
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\tenacity\__init__.py", line 473, in __call__
+    result = fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\google\genai\_api_client.py", line 1381, in _request_once
+    errors.APIError.raise_for_response(response)
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\google\genai\errors.py", line 155, in raise_for_response
+    cls.raise_error(response.status_code, response_json, response)
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\google\genai\errors.py", line 184, in raise_error
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Buffer\Applied data science and AI specialization\RAG\app.py", line 106, in chat_endpoint
+    answer = current_chain.invoke(request.message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_core\runnables\base.py", line 3444, in invoke
+    input_ = context.run(step.invoke, input_, config)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_google_genai\chat_models.py", line 2701, in invoke
+    return super().invoke(input, config, stop=stop, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_core\language_models\chat_models.py", line 476, in invoke
+    self.generate_prompt(
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1849, in generate_prompt
+    return self.generate(prompt_messages, stop=stop, callbacks=callbacks, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1656, in generate
+    self._generate_with_cache(
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_core\language_models\chat_models.py", line 1994, in _generate_with_cache
+    result = self._generate(
+             ^^^^^^^^^^^^^^^
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_google_genai\chat_models.py", line 3238, in _generate
+    _handle_client_error(e, request)
+  File "D:\downloads\anaconda\envs\Rag_app\Lib\site-packages\langchain_google_genai\chat_models.py", line 169, in _handle_client_error
+    raise ChatGoogleGenerativeAIError(msg) from e
+langchain_google_genai.chat_models.ChatGoogleGenerativeAIError: Error calling model 'gemini-1.5-flash' (NOT_FOUND): 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2026-06-18 00:57:36,485 - INFO - rag_app - Completed POST /chat - Status: 500 - Time: 606.16ms
