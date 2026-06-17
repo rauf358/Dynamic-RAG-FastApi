@@ -29,7 +29,7 @@ def setup_logger():
     # 4. File Handler (Saves to logs/app.log)
     # Auto-rotates when the file hits 5MB, keeps 3 backups max
     file_handler = RotatingFileHandler(
-        "logs/app.log", maxBytes=5*1024*1024, backupCount=3
+        "logs/app.log", maxBytes=5*1024*1024, backupCount=3, encoding="utf-8"
     )
     file_handler.setLevel(logging.DEBUG) # Save EVERYTHING to the file
     file_handler.setFormatter(formatter)

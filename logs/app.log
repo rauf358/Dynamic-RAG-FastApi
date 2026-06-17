@@ -1,0 +1,25 @@
+2026-06-18 00:01:31,235 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:01:31,237 - INFO - rag_app - Completed GET / - Status: 404 - Time: 1.99ms
+2026-06-18 00:01:31,371 - INFO - rag_app - Incoming request: GET /favicon.ico
+2026-06-18 00:01:31,372 - INFO - rag_app - Completed GET /favicon.ico - Status: 404 - Time: 1.00ms
+2026-06-18 00:08:24,667 - INFO - rag_app - Starting up Dynamic RAG API Server...
+2026-06-18 00:08:30,893 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:08:30,893 - INFO - rag_app - Completed GET / - Status: 404 - Time: 0.00ms
+2026-06-18 00:10:34,202 - INFO - rag_app - Starting up Dynamic RAG API Server...
+2026-06-18 00:10:34,288 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:10:34,296 - INFO - rag_app - Completed GET / - Status: 404 - Time: 7.92ms
+2026-06-18 00:10:36,012 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:10:36,012 - INFO - rag_app - Completed GET / - Status: 404 - Time: 0.00ms
+2026-06-18 00:10:36,462 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:10:36,462 - INFO - rag_app - Completed GET / - Status: 404 - Time: 0.00ms
+2026-06-18 00:10:36,806 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:10:36,806 - INFO - rag_app - Completed GET / - Status: 404 - Time: 0.00ms
+2026-06-18 00:13:44,534 - INFO - rag_app - Starting up Dynamic RAG API Server...
+2026-06-18 00:13:55,472 - INFO - rag_app - Incoming request: GET /
+2026-06-18 00:13:55,472 - INFO - rag_app - Completed GET / - Status: 404 - Time: 0.00ms
+2026-06-18 00:14:10,497 - INFO - rag_app - Incoming request: GET /docs
+2026-06-18 00:14:10,501 - INFO - rag_app - Completed GET /docs - Status: 200 - Time: 3.97ms
+2026-06-18 00:14:12,505 - INFO - rag_app - Incoming request: GET /openapi.json
+2026-06-18 00:14:12,526 - INFO - rag_app - Completed GET /openapi.json - Status: 200 - Time: 20.83ms
+2026-06-18 00:14:59,697 - INFO - rag_app - Incoming request: POST /upload
+2026-06-18 00:14:59,711 - INFO - rag_app - Received file upload: Agentic AI Class Task - Crypto Agent.pdf
