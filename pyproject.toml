@@ -1,0 +1,11 @@
+[project]
+name = "src"
+version = "0.0.1"
+description = "A dynamic RAG backend API using FastAPI, LangChain, and ChromaDB"
+authors = [{name = "Abdul Rauf", email = "raufyawar@gmail.com"}]
+
+[tool.setuptools]
+packages = {find = {}}
+
+[tool.setuptools.dynamic]
+dependencies = {file = "requirements.txt"}
