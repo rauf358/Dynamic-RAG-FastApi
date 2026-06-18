@@ -8,6 +8,6 @@ langchain-google-genai
 fastapi
 sentence-transformers
 python-multipart
-#pysqlite3-binary
+pysqlite3-binary
 uvicorn
 -e .
