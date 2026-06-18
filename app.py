@@ -110,3 +110,9 @@ async def chat_endpoint(request: ChatRequest):
         logger.error(f"Error during chat generation: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/")
+async def serve_frontend():
+    """Serves the frontend HTML UI."""
+    with open("index.html", "r", encoding="utf-8") as f:
+        html_content = f.read()
+    return HTMLResponse(content=html_content)

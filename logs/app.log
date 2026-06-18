@@ -338,3 +338,29 @@ langchain_google_genai.chat_models.ChatGoogleGenerativeAIError: Error calling mo
 2026-06-18 01:02:33,842 - INFO - rag_app - User asked: 'What in this file? '
 2026-06-18 01:02:35,199 - DEBUG - rag_app - Successfully generated LLM response.
 2026-06-18 01:02:35,200 - INFO - rag_app - Completed POST /chat - Status: 200 - Time: 1359.84ms
+2026-06-18 01:09:58,861 - INFO - rag_app - Starting up Dynamic RAG API Server...
+2026-06-18 01:10:39,420 - INFO - rag_app - Incoming request: GET /
+2026-06-18 01:10:39,420 - INFO - rag_app - Completed GET / - Status: 200 - Time: 0.00ms
+2026-06-18 01:10:44,389 - INFO - rag_app - Incoming request: GET /favicon.ico
+2026-06-18 01:10:44,390 - INFO - rag_app - Completed GET /favicon.ico - Status: 404 - Time: 0.98ms
+2026-06-18 01:11:03,806 - INFO - rag_app - Incoming request: POST /upload
+2026-06-18 01:11:03,829 - INFO - rag_app - Received file upload: Filled_Internship_Questionnaire.pdf
+2026-06-18 01:11:03,832 - INFO - rag_app - Starting document processing pipeline...
+2026-06-18 01:11:03,833 - INFO - rag_app - Attempting to load PDF from: temp_uploads/Filled_Internship_Questionnaire.pdf
+2026-06-18 01:11:04,039 - INFO - rag_app - Successfully loaded 2 pages from the PDF.
+2026-06-18 01:11:04,039 - INFO - rag_app - Starting text splitting: chunk_size=1000, overlap=200
+2026-06-18 01:11:04,040 - INFO - rag_app - Successfully split the document into 3 individual chunks.
+2026-06-18 01:11:04,040 - INFO - rag_app - Initializing embedding model: all-MiniLM-L6-v2
+2026-06-18 01:11:12,071 - INFO - rag_app - Successfully loaded embedding model.
+2026-06-18 01:11:12,071 - INFO - rag_app - Creating vector store for 3 chunks...
+2026-06-18 01:11:12,242 - INFO - rag_app - Successfully built Chroma vector store.
+2026-06-18 01:11:12,242 - INFO - rag_app - Building RAG chain...
+2026-06-18 01:11:12,243 - DEBUG - rag_app - Initializing Gemini 1.5 Flash model...
+2026-06-18 01:11:12,289 - INFO - rag_app - Successfully built RAG chain.
+2026-06-18 01:11:12,289 - INFO - rag_app - Successfully processed Filled_Internship_Questionnaire.pdf and activated RAG chain.
+2026-06-18 01:11:12,289 - DEBUG - rag_app - Cleaned up temporary file: temp_uploads/Filled_Internship_Questionnaire.pdf
+2026-06-18 01:11:12,289 - INFO - rag_app - Completed POST /upload - Status: 200 - Time: 8483.41ms
+2026-06-18 01:11:27,393 - INFO - rag_app - Incoming request: POST /chat
+2026-06-18 01:11:27,395 - INFO - rag_app - User asked: 'whats this document about?'
+2026-06-18 01:11:28,630 - DEBUG - rag_app - Successfully generated LLM response.
+2026-06-18 01:11:28,630 - INFO - rag_app - Completed POST /chat - Status: 200 - Time: 1237.16ms
